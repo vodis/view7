@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Wallpaper</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      .wallpaper {
+        background: #ccc;
+      }
+      .wallpaper__top {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100vh;
+      }
+      .walpaper__col {
+        width: 1px;
+        height: 0px;
+        background: #3d4f65;
+        animation: drop-down 2s ease-in-out;
+      }
+      .walpaper__col:before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        margin-left: 1px;
+        height: 100%;
+        background: #ffffff;
+      }
+      .walpaper__col:last-child:before {
+        content: "";
+        position: absolute;
+        width: 1px;
+        margin-left: -2px;
+        height: 100%;
+        background: #ffffff;
+      }
+      @keyframes drop-down {
+        0% {
+          height: 0px;
+        }
+        100% {
+          height: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wallpaper">
+      <div class="wallpaper__top">
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+        <div class="walpaper__col"></div>
+      </div>
+    </div>
+  </body>
+</html>
