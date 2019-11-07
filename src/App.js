@@ -1,19 +1,23 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { loadable } from './utils/loadeble';
+// import { Provider } from 'react-redux';
 
-const routes = {
-  root: '/',
-};
+import CombineRoutes from './routes/common.route';
+import LeftSidebars from './components/Layout/LeftSidebars';
+// import store from './store/configureStore';
 
-function App() {
-  return (
-    <div className="App">
-      <Switch>
-        <Route exact path={routes.root} component={loadable.Home} />
-      </Switch>
-    </div>
-  );
+import './App.scss';
+
+class App extends React.Component {
+  render() {
+    return (
+      // <Provider store={store}>
+        <div className="container">
+          <LeftSidebars />
+          <CombineRoutes {...this.props} />
+        </div>
+      // </Provider>
+    );
+  }
 }
 
 export default App;
