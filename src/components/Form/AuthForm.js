@@ -1,14 +1,17 @@
-import React, { Component } from 'react'; 
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { reduxForm, Field } from 'redux-form';
 
 import './AuthForm.scss';
 
 class AuthForm extends Component {
-    handleClick = (e) => {
-        e.preventDefault();
+    
+    handleSubmit = (e) => {debugger;
         this.props.actions.signIn();
     }
 
     render() {
+        const { handleSubmit, submitting } = this.props;
         return (
             <div className="form">
                 <div className="form__container">
@@ -18,12 +21,12 @@ class AuthForm extends Component {
                     </div>
                     <div className="form__section">
                         <span>Use your email</span>
-                        <form className="login">
+                        <form className="login" onSubmit={handleSubmit((this.handleSubmit))}>
                             <label htmlFor="email">Email</label>
-                            <input type="email" name="email" />
+                            <Field name="email" component="input" />
                             <label htmlFor="password">Password</label>
-                            <input type="password" name="password" />
-                            <button className="btn" type="submit" onClick={this.handleClick}>Login</button>
+                            <Field name="password" component="input" />
+                            <button className="btn" type="submit" disabled={submitting}>Login</button>
                         </form>
                     </div>
                 </div>
@@ -32,4 +35,17 @@ class AuthForm extends Component {
     }
 }
 
-export default AuthForm;
+AuthForm = reduxForm({
+    form: 'login',
+    destroyOnUnmount: false,
+})(AuthForm);
+
+const enhance = connect(
+    // Map redux state to component props
+    ({ firebase: { auth, profile } }) => ({
+        auth,
+        profile
+    })
+);
+
+export default enhance(AuthForm);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 
+import { createFirestoreInstance } from 'redux-firestore';
 import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
 import configureStore from './store/configureStore';
 import firebase from './configuration/firebase';
@@ -14,11 +15,11 @@ import './App.scss';
 const store = configureStore({});
 
 const rrfProps = {
-firebase,
-config: rrfConfig,
-dispatch: store.dispatch,
-// createFirestoreInstance // <- needed if using firestore
-}
+  firebase,
+  config: rrfConfig,
+  dispatch: store.dispatch,
+  createFirestoreInstance
+};
 
 class App extends React.Component {
   render() {

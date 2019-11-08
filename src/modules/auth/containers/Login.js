@@ -6,7 +6,6 @@ import * as AuthActions from '../actions/auth.actions';
 
 class Login extends Component {
     render() {
-        console.log('store', this.props);
         return (
             <AuthForm {...this.props}/>
         );
@@ -15,10 +14,11 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth.authReducer
+        auth: state.auth.authReducer,
+        firestore: state.firestore,
+        firebase: state.firebase,
     }
 }
-
 
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(AuthActions, dispatch)
