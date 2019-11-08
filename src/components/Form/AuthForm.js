@@ -1,8 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'; 
 
 import './AuthForm.scss';
 
 class AuthForm extends Component {
+    handleClick = (e) => {
+        e.preventDefault();
+        this.props.actions.signIn();
+    }
+
     render() {
         return (
             <div className="form">
@@ -18,7 +23,7 @@ class AuthForm extends Component {
                             <input type="email" name="email" />
                             <label htmlFor="password">Password</label>
                             <input type="password" name="password" />
-                            <button className="btn" type="submit">Login</button>
+                            <button className="btn" type="submit" onClick={this.handleClick}>Login</button>
                         </form>
                     </div>
                 </div>

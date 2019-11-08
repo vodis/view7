@@ -1,11 +1,11 @@
 import React from 'react';
 import IncludedHome from '../modules/home/home.route';
-import IncludedLogin from '../modules/oauth/oauth.route';
+import IncludedLogin from '../modules/auth/auth.route';
 import IncludedPreLoader from '../components/PreLoader/PreLoader';
 
 const CombineRoutes = (props) => {
-    const oauth = false;
-    switch (oauth) {
+    const auth = false;
+    switch (auth) {
         case 'cookes': 
             return <IncludedPreLoader />
         case true: 

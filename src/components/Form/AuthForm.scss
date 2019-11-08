@@ -6,6 +6,8 @@
 
   &__container {
     width: 650px;
+    max-width: 100%;
+    padding: 10px 30px;
     & span {
       display: block;
       text-align: center;
