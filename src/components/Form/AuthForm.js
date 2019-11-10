@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { compose } from 'redux';
 import { reduxForm, Field } from 'redux-form';
+import { firebaseConnect } from 'react-redux-firebase';
 
 import './AuthForm.scss';
 
 class AuthForm extends Component {
     
-    handleSubmit = (e) => {debugger;
-        this.props.actions.signIn();
+    handleSubmit = (e) => {
+        this.props.firebase.createUser(e)
+            .then(cred => console.log(cred))
+            .catch(error => console.log(error));
+        this.props.actions.signIn(e);
     }
 
     render() {
@@ -40,12 +45,12 @@ AuthForm = reduxForm({
     destroyOnUnmount: false,
 })(AuthForm);
 
-const enhance = connect(
-    // Map redux state to component props
-    ({ firebase: { auth, profile } }) => ({
-        auth,
-        profile
-    })
-);
+const mapStateToProps = ({ firebase: { auth, profile } }) => ({
+    auth,
+    profile
+})
 
-export default enhance(AuthForm);
+export default compose(
+    firebaseConnect(),
+    connect(mapStateToProps, null)
+)(AuthForm);
