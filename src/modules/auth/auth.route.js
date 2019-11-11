@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Login from './containers/Login';
-import User from './containers/User';
+import Logout from './containers/Logout';
 
-const OauthRouter = () => (
+const AuthRouter = () => (
     <>
-        <Route path="/login" name="auth" exact component={Login} />
-        <Route path="/user" name="user" exact component={User} />
+        <Route path="/login" name="login" exact component={Login} />
+        <Route path="/logout" name="logout" exact component={Logout} />
     </>
 );
 
-export default OauthRouter;
+export default AuthRouter;

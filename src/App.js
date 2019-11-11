@@ -11,7 +11,7 @@ import CombineRoutes from './routes/common.route';
 
 import './App.scss';
 
-const store = configureStore({});
+const store = configureStore();
 
 const rrfProps = {
   firebase,
