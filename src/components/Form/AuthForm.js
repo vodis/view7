@@ -2,15 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm, Field } from 'redux-form';
 
-import { logIn } from '../../modules/auth/actions/auth.actions';
+import { logIn, signUp } from '../../modules/auth/actions/auth.actions';
 
 import './AuthForm.scss';
 
 class AuthForm extends Component {
-    handleSubmit = (e) => {
-        this.props.logIn(e);
-    }
-
     render() {
         const { handleSubmit, submitting } = this.props;
         return (
@@ -22,15 +18,27 @@ class AuthForm extends Component {
                     </div>
                     <div className="form__section">
                         <span>Use your email</span>
-                        <form className="login" onSubmit={handleSubmit((this.handleSubmit))}>
+                        <form className="login">
                             <label htmlFor="email">Email</label>
                             <Field name="email" component="input" />
                             <label htmlFor="password">Password</label>
                             <Field name="password" component="input" />
                             <div className="btn__wrapper">
-                                <button className="btn btn__half" type="submit" name="login" disabled={submitting}>Login</button>
+                                <button 
+                                    onClick={handleSubmit((e) => this.props.logIn(e))} 
+                                    className="btn btn__half" 
+                                    type="submit" 
+                                    name="login" 
+                                    disabled={submitting}
+                                >Login</button>
                                 <div className="btn__divider"></div>
-                                <button className="btn btn__half" type="submit" name="signup" disabled={submitting}>Sign Up</button>
+                                <button 
+                                    onClick={handleSubmit((e) => this.props.signUp(e))} 
+                                    className="btn btn__half btn__m-5" 
+                                    type="submit" 
+                                    name="signup" 
+                                    disabled={submitting}
+                                >Sign Up</button>
                             </div>
                         </form>
                     </div>
@@ -41,12 +49,13 @@ class AuthForm extends Component {
 }
 
 AuthForm = reduxForm({
-    form: 'login',
+    form: 'auth',
     destroyOnUnmount: false,
 })(AuthForm);
 
 const mapDispatchToProps = dispatch => ({
-    logIn: (credential) => dispatch(logIn(credential))
+    logIn: (credential) => dispatch(logIn(credential)),
+    signUp: (credential) => dispatch(signUp(credential)),
 });
 
 export default connect(null, mapDispatchToProps)(AuthForm);
