@@ -18,6 +18,7 @@ const CombineRoutes = (props) => {
 }
 
 const mapStateToProps = (state) => {
+    console.log(state)
     return {
         authError: state.auth.authError
     }
