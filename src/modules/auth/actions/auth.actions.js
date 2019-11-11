@@ -3,7 +3,8 @@ import { LOGIN_SUCCESS, LOGIN_ERROR, SIGNOUT_SUCCESS } from '../constants/auth.c
 export const logIn = (credentials) => {
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
-        firebase.auth().createUserWithEmailAndPassword(
+        firebase.auth().signInWithEmailAndPassword(
+        // firebase.auth().createUserWithEmailAndPassword(
             credentials.email, 
             credentials.password
         ).then(() => {

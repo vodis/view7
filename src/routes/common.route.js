@@ -5,9 +5,9 @@ import IncludedPreLoader from '../components/PreLoader/PreLoader';
 import { connect } from 'react-redux';
 
 const CombineRoutes = (props) => {
-    const { authError } = props;
-
-    switch (authError !== null) {
+    const { authError, auth } = props;
+    console.log(auth, authError);
+    switch (!auth.isLoaded) {
         case true: 
             return <IncludedHome {...props} />;
         case false: 
@@ -20,7 +20,8 @@ const CombineRoutes = (props) => {
 const mapStateToProps = (state) => {
     console.log(state)
     return {
-        authError: state.auth.authError
+        auth: state.firebase.auth,
+        authError: state.authError,
     }
 }
 

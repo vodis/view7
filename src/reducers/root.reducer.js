@@ -5,7 +5,7 @@ import { firestoreReducer } from 'redux-firestore';
 import { reducer as formReducer } from 'redux-form';
 
 const rootReducer = combineReducers({
-    auth: authReducer,
+    authReducer,
     firebase: firebaseReducer,
     firestore: firestoreReducer,
     form: formReducer,

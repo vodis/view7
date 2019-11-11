@@ -18,7 +18,7 @@ class AuthForm extends Component {
                 <div className="form__container">
                     <div className="form__section">
                         <span>Sign In</span>
-                        <button className="btn">Google Authorization</button>
+                        <button className="btn btn__full">Google Authorization</button>
                     </div>
                     <div className="form__section">
                         <span>Use your email</span>
@@ -27,7 +27,11 @@ class AuthForm extends Component {
                             <Field name="email" component="input" />
                             <label htmlFor="password">Password</label>
                             <Field name="password" component="input" />
-                            <button className="btn" type="submit" disabled={submitting}>Login / Sign Up</button>
+                            <div className="btn__wrapper">
+                                <button className="btn btn__half" type="submit" name="login" disabled={submitting}>Login</button>
+                                <div className="btn__divider"></div>
+                                <button className="btn btn__half" type="submit" name="signup" disabled={submitting}>Sign Up</button>
+                            </div>
                         </form>
                     </div>
                 </div>
