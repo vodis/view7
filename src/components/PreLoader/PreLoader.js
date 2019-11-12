@@ -1,25 +1,35 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
+import Cookies from '../../services/cookies';
 
 class LoadingView extends React.Component {
     state = {
-        i: 1
+        loader: null
     }
 
     componentDidMount() {
-        this.timerId = setInterval(() => {
-            console.log(this.state.i);
-            this.setState({ i: this.state.i + 1 })
-        }, 1000);
+        this.timerId = setTimeout(() => {
+            Cookies.set("root");
+            this.setState({ loader: "pass" });
+        }, 5000);
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerId);
+        clearTimeout(this.timerId);
     }
 
     render() {
-        return (
-            <h1>Loading</h1>
-        );
+        const { loader } = this.state;
+        
+        if (loader === null) {
+            return (
+                <p>Loading...</p>
+            );
+        }
+
+        return loader && this.props.auth.uid 
+            ? <Redirect to={{pathname: "/"}} /> 
+            : <Redirect to={{pathname: "/login"}} />
     }
 };
 

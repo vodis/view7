@@ -4,7 +4,8 @@ import thunk from 'redux-thunk';
 import { getFirebase } from 'react-redux-firebase'
 
 const enhance = compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase }))
+    applyMiddleware(thunk.withExtraArgument({ getFirebase })),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
 );
 
 export default function configureStore(initialState = {}) {

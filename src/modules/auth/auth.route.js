@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Login from './containers/Login';
-import Logout from './containers/Logout';
+import LeftSidebars from '../../components/Layout/LeftSidebars'; 
 
-const AuthRouter = () => (
-    <>
-        <Route path="/login" name="login" exact component={Login} />
-        <Route path="/logout" name="logout" exact component={Logout} />
-    </>
-);
+const AuthRouter = (props) => {
+    return (
+        <Router>
+            <LeftSidebars />
+            <Switch>
+                <Route path="/login" name="login" exact component={Login} />
+            </Switch>
+        </Router>
+    )
+};
 
 export default AuthRouter;

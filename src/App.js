@@ -7,7 +7,6 @@ import configureStore from './store/configureStore';
 import { firebase, rrfConfig } from './configuration/firebase';
 
 import Wrapper from './components/Wrapper/Wrapper';
-import CombineRoutes from './routes/common.route';
 
 import './App.scss';
 
@@ -25,9 +24,7 @@ class App extends React.Component {
     return (
       <Provider store={store}>
         <ReactReduxFirebaseProvider {...rrfProps}>
-          <Wrapper>
-            <CombineRoutes {...this.props} />
-          </Wrapper>
+          <Wrapper />
         </ReactReduxFirebaseProvider>
       </Provider>
     );

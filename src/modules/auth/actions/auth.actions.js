@@ -9,7 +9,7 @@ export const signUp = (credentials) => {
         ).then(() => {
             dispatch({ type: SIGNUP_SUCCESS });
         }).catch((error) => {
-            dispatch({ type: SIGNUP_ERROR });
+            dispatch({ type: SIGNUP_ERROR, error });
         });
     };
 };
@@ -23,7 +23,7 @@ export const logIn = (credentials) => {
         ).then(() => {
             dispatch({ type: LOGIN_SUCCESS });
         }).catch((error) => {
-            dispatch({ type: LOGIN_ERROR });
+            dispatch({ type: LOGIN_ERROR, error });
         });
     };
 };

@@ -2,27 +2,25 @@ import React from 'react';
 import IncludedHome from '../modules/home/home.route';
 import IncludedLogin from '../modules/auth/auth.route';
 import IncludedPreLoader from '../components/PreLoader/PreLoader';
-import { connect } from 'react-redux';
 
 const CombineRoutes = (props) => {
-    const { authError, auth } = props;
-    console.log(auth, authError);
-    switch (!auth.isLoaded) {
-        case true: 
-            return <IncludedHome {...props} />;
-        case false: 
+    const { auth: { uid }, cookie } = props;
+    const root = {};
+
+    if (uid) root.page = 'home';
+    if (uid === undefined && cookie !== undefined) root.page = 'auth';
+    
+    switch (root.page) {
+        case 'home':
+            console.log('home');
+            return <IncludedHome {...props} />
+        case 'auth':
+            console.log('auth');
             return <IncludedLogin {...props} />
-        default: 
-            return <IncludedPreLoader />
+        default:
+            console.log('prel')
+            return <IncludedPreLoader {...props} />
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log(state)
-    return {
-        auth: state.firebase.auth,
-        authError: state.authError,
-    }
-}
-
-export default connect(mapStateToProps, null)(CombineRoutes);
+export default CombineRoutes;

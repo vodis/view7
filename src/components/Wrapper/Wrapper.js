@@ -1,11 +1,21 @@
 import React from 'react';
-import LeftSidebars from '../Layout/LeftSidebars';
+import { connect } from 'react-redux';
+import Cookies from '../../services/cookies';
+import CombineRoutes from '../../routes/common.route';
 
-const Wrapper = (props) => (
-    <div className="container">
-        <LeftSidebars />
-        {props.children}
-    </div>
-);
 
-export default Wrapper;
+const Wrapper = (props) => {
+    return (
+        <div className="container">
+            <CombineRoutes {...props} cookie={() => Cookies.get()} />
+        </div>
+    );
+};
+
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
+export default connect(mapStateToProps, null)(Wrapper);
