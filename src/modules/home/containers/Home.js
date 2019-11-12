@@ -1,7 +1,9 @@
 import React from 'react';
 
-const Home = () => (
-    <p style={{textAlign: "center", width: "100%"}}>Home</p>
+const Home = (props) => (
+    <div>
+        {props.children}
+    </div>
 );
 
 export default Home;
