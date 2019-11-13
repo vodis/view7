@@ -1,15 +1,14 @@
 import React from 'react';
 import LeftSidebars from '../../../components/Layout/LeftSidebars';
-import Slider from '../components/Slider/Slider';
-import { Link } from 'react-router-dom';
+import Main from '../components/Main/Main';
+import Tools from '../components/Tools/Tools';
 
 const Home = (props) => (
-    <div className="container">
+    <>
         <LeftSidebars />
-        <Slider />
-        <Link to="/" >Home</Link>
-        <Link to="/user" >User</Link>
-    </div>
+        <Main />
+        <Tools />
+    </>
 );
 
 export default Home;

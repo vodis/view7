@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: calc(100% - 300px);
 
   &__container {
     display: block;
@@ -44,7 +44,7 @@
     &__m-5 {
       margin-top: 5px;
     }
-    
+
     &__divider {
       display: block;
       position: absolute;
@@ -58,7 +58,6 @@
       z-index: 1;
     }
   }
-
 
   &__section {
     padding-bottom: 20px;
