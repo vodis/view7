@@ -1,15 +1,14 @@
 import React from 'react';
 import LeftSidebars from '../../../components/Layout/LeftSidebars';
-import Slider from '../components/Slider/Slider';
 import { Link } from 'react-router-dom';
 
-const Home = (props) => (
+const Error = () => (
     <div className="container">
         <LeftSidebars />
-        <Slider />
+        <h1>404</h1>
         <Link to="/" >Home</Link>
         <Link to="/user" >User</Link>
     </div>
 );
 
-export default Home;
+export default Error;

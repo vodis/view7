@@ -53,9 +53,15 @@ AuthForm = reduxForm({
     destroyOnUnmount: false,
 })(AuthForm);
 
+const mapStateToProps = (state) => {
+    return {
+        auth: state.firebase.auth
+    }
+}
+
 const mapDispatchToProps = dispatch => ({
     logIn: (credential) => dispatch(logIn(credential)),
     signUp: (credential) => dispatch(signUp(credential)),
 });
 
-export default connect(null, mapDispatchToProps)(AuthForm);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthForm);

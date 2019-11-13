@@ -1,28 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import Login from './containers/Login';
-import LeftSidebars from '../../components/Layout/LeftSidebars'; 
+import React, { Suspense } from 'react';
+import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
+import {loadable} from '../../services/loadable';
+import Spinner from '../../components/Spinner/Spinner';
 
 const AuthRouter = (props) => {
-    console.log(props);
-    return (
-        <Router>
-            <LeftSidebars />
-            <Switch>
-                <PrivateRoute {...props} />
-            </Switch>
-        </Router>
-    )
-};
+    let history = useHistory();
 
-const PrivateRoute = ({children, auth, cookie}) => {
-    return (
-        <Route render={() => {
-            return auth.uid 
-                ? <Route path="/login" name="login" exact component={Login} />
-                : <Redirect to={{ pathname: "/login" }} />
-        }} />
+    const Component = (
+        <Suspense fallback={<Spinner />}>
+            <Switch>
+                <Route path="/login" name="auth" exact component={loadable.auth} />
+            </Switch>
+        </Suspense>
     );
+    
+    return props.auth.uid === undefined && history.location.pathname !== "/login"
+        ?   <Redirect to="/login" />
+        :   Component
 }
 
 export default AuthRouter;

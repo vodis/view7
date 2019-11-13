@@ -1,44 +1,41 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
-import LeftSidebars from '../../components/Layout/LeftSidebars';
+import { BrowserRouter as Router, Switch, Route, Redirect,useHistory } from 'react-router-dom';
 import Home from './containers/Home';
-import Slider from './components/Slider/Slider';
-import NoMatch from './components/NoMatch/NoMatch';
+import Error from './containers/Error';
 
 const routes = [
     {
-        path: '/',
-        component: Slider,
+        path: "/",
+        component: Home
     },
     {
-        path: '*',
-        component: NoMatch,
-    }
-]
+        path: "/user",
+        component: Home
+    },
+    {
+        path: "*",
+        component: Error
+    },
 
-const HomeRouter = (props) => {
+];
+
+const HomeRouter = () => {
+    let history = useHistory();
+    if (history.location.pathname === "/login") {
+        return <Redirect to="/" />
+    }
+
     return (
         <Router>
-            <LeftSidebars />
-            <Home {...props}>
-                <Switch>
-                    <PrivateRoute {...props}/>
-                </Switch>
-            </Home>
+            <Switch>
+                {
+                    routes.map((route, i) => (
+                        <Route key={i} path={route.path} exact component={route.component} />
+                    ))
+                }
+            </Switch>
         </Router>
     );
 };
-
-const PrivateRoute = ({children, auth, cookie}) => {
-    return (
-        <Route render={() => {
-            return auth.uid 
-                ? routes.map((route, i) => (
-                    <Route key={i} path={route.path} exact component={route.component} />
-                ))
-                : <Redirect to={{ pathname: "/" }} />
-        }} />
-    );
-}
 
 export default HomeRouter;
