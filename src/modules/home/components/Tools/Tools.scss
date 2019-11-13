@@ -1,5 +1,8 @@
 .tools {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
   position: absolute;
   top: 0;
   left: 300px;
@@ -11,5 +14,73 @@
   &.open {
     left: calc(100% - 300px);
     width: 300px;
+  }
+
+  &__img {
+    position: relative;
+    background: url('../../../../media/img/reducers.png') no-repeat center center;
+    background-size: contain;
+    width: 150px;
+    height: 150px;
+    opacity: 0;
+    margin-top: -125px;
+    animation: reducer 0.5s ease-in-out 2s 1 forwards;
+  }
+
+  @keyframes reducer {
+    0% {
+      opacity: 0;
+      margin-top: -125px;
+    }
+    100% {
+      opacity: 0.85;
+      margin-top: 0px;
+    }
+  }
+
+  &__shelf {
+    display: block;
+    background: #888686;
+    opacity: 0;
+    width: 20px;
+    height: 2px;
+    border-radius: 3px;
+    transform: rotate(90deg);
+    animation: scale 0.5s cubic-bezier(0.55, 0.09, 0.68, 0.53);
+    animation-fill-mode: forwards;
+    animation-delay: 2s;
+  }
+  
+  @keyframes scale {
+    0% {
+      width: 20px;
+      transform: rotate(90deg);
+      opacity: 1;
+    }
+    50% {
+      transform: rotate(0deg);
+    }
+    100% {
+      width: 180px;
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+  }
+
+  &__append-img {
+    position: relative;
+    background: url('../../../../media/img/folder.png') no-repeat center center/contain;
+    background-size: 150px;
+    min-width: 100%;
+    min-height: 200px;
+    overflow: hidden;
+    top: 0;
+    transition: transform 0.5s cubic-bezier(0.62, 0.16, 0, 1.04);
+
+    &:hover {
+      background-size: 155px;
+      top: -5px;
+      transform: rotate(2deg);
+    }
   }
 }

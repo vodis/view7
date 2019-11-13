@@ -5,7 +5,9 @@ import "./Main.scss";
 class Main extends React.Component { 
     render() {
         return (
-            <div className="main">Main</div>
+            <div className="main">
+                <div className="main__slider"></div>
+            </div>
         );
     }
 };
