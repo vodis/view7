@@ -14,7 +14,12 @@ body {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   margin-top: 0px;
   margin-bottom: 1.5rem;
 }
@@ -24,7 +29,9 @@ ul li {
 }
 
 hr {
-  border-top: 1px solid #888686;
+  border-top: 1px solid #eef2f7;
+  margin-top: 6px;
+  margin-bottom: 16px;
 }
 
 .container {

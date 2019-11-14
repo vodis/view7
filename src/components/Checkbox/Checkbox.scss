@@ -1,57 +1,49 @@
 .checkbox {
-    width: 100%;
-    padding: 24px;
+  width: 100%;
+  padding: 24px;
 
-    .block-switch {
-        padding-left: 30px;
-        overflow: visible;
-        padding-bottom: 5px;
-        
-        &__input {
-            position: absolute;
-            z-index: -1;
-            opacity: 0;
-        }
+  .block-switch {
+    padding-left: 30px;
+    overflow: visible;
+    padding-bottom: 10px;
 
-        &__label {
-            position: relative;
-            margin-bottom: 0px;
-            vertical-align: top;
-            
-            &:before {
-                position: absolute;
-                top: 0.15625rem;
-                // left: -1.5rem;
-                display: block;
-                // width: 1rem;
-                height: 1rem;
-                pointer-events: none;
-                content: "";
-                background-color: rgb(70, 79, 91);
-                border-width: 1px;
-                border-style: solid;
-                border-color: rgb(82, 93, 107);
-                border-image: initial;
-
-                left: -2.25rem;
-                width: 1.75rem;
-                pointer-events: all;
-                border-radius: 0.5rem;
-            }
-
-            &:after {
-                position: absolute;
-                content: "";
-                background-color: #fff;
-                -webkit-transform: translateX(.75rem);
-                transform: translateX(.75rem);
-                top: calc(.175rem + 2px);
-                left: calc(-2.25rem + 2px);
-                width: calc(1rem - 4px);
-                height: calc(1rem - 4px);
-                background-color: #dee2e6;
-                border-radius: .5rem;
-            }
-        }
+    &__input {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
     }
+
+    &__label {
+      position: relative;
+      margin-bottom: 0px;
+      vertical-align: top;
+
+      &:before {
+        content: "";
+        position: absolute;
+        display: block;
+        top: 1px;
+        height: 14px;
+        width: 26px;
+        background-color: #ffffff;
+        border: #dee2e6 solid 1px;
+        border-radius: 10px;
+        left: -35px;
+        pointer-events: all;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        background-color: #fff;
+        top: calc(1px + 2px);
+        left: calc(-35px + 2px);
+        width: calc(16px - 4px);
+        height: calc(16px - 4px);
+        background-color: #dee2e6;
+        border-radius: 8px;
+        transform: translateX(0.75rem);
+      }
+    }
+  }
 }

@@ -10,11 +10,11 @@ const Checkbox = () => {
                 <hr />
                 <div className="block-switch">
                     <input type="radio" className="block-switch__input" id="light-mode-check" value="light" />
-                    <label className="block-switch__label" for="light-mode-check">Light Mode</label>
+                    <label className="block-switch__label" htmlFor="light-mode-check">Light Mode</label>
                 </div>
                 <div className="block-switch">
-                    <input type="radio" className="block-switch__input" id="dark-mode-check" value="dark" checked />
-                    <label className="block-switch__label" for="dark-mode-check">Dark Mode</label>
+                    <input type="radio" className="block-switch__input" id="dark-mode-check" value="dark" />
+                    <label className="block-switch__label" htmlFor="dark-mode-check">Dark Mode</label>
                 </div>
             </div>
         </div>

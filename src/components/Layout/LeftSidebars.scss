@@ -4,11 +4,19 @@
   height: 100%;
   background: #3d4f65;
 
+  h1 {
+    color: #dee2e6;
+    padding-top: 40px;
+    padding-left: 20px;
+    text-align: center;
+  }
+
   &__container {
     display: flex;
     flex-wrap: wrap;
     height: 100%;
     align-content: space-between;
+    overflow: hidden;
 
     .logout {
       width: 100%;
@@ -26,9 +34,10 @@
     }
   }
 
-  &__nav {
-    font-size: 1.2rem;
-    color: #ffffff;
-    text-transform: uppercase;
+  .nav {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100% - 250px);
   }
 }

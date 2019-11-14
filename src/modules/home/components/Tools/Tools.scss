@@ -10,6 +10,13 @@
   height: 100%;
   background: #fff;
   transition: all 1s;
+  overflow: hidden;
+
+  h5 {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #6c757d;
+  }
 
   &.open {
     left: calc(100% - 300px);
@@ -18,9 +25,10 @@
 
   &__img {
     position: relative;
-    background: url('../../../../media/img/reducers.png') no-repeat center center;
+    background: url("../../../../media/img/reducers.png") no-repeat center
+      center;
     background-size: contain;
-    width: 150px;
+    width: 120px;
     height: 150px;
     opacity: 0;
     margin-top: -125px;
@@ -50,7 +58,7 @@
     animation-fill-mode: forwards;
     animation-delay: 2s;
   }
-  
+
   @keyframes scale {
     0% {
       width: 20px;
@@ -69,18 +77,29 @@
 
   &__append-img {
     position: relative;
-    background: url('../../../../media/img/folder.png') no-repeat center center/contain;
-    background-size: 150px;
+    background: url("../../../../media/img/folder.png") no-repeat center
+      center/contain;
+    background-size: 100px;
+    background-position: 50% -100%;
     min-width: 100%;
-    min-height: 200px;
+    min-height: 150px;
     overflow: hidden;
     top: 0;
-    transition: transform 0.5s cubic-bezier(0.62, 0.16, 0, 1.04);
+    transition: top 0.5s cubic-bezier(0.62, 0.16, 0, 1.04);
+    animation: folder 0.5s ease-in-out 2.5s 1 normal forwards;
 
     &:hover {
-      background-size: 155px;
+      background-size: 115px;
       top: -5px;
-      transform: rotate(2deg);
+    }
+  }
+
+  @keyframes folder {
+    0% {
+      background-position: 50% -100%;
+    }
+    100% {
+      background-position: 50% 50%;
     }
   }
 }
