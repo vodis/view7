@@ -7,12 +7,7 @@ import './LeftSidebars.scss';
 const LeftSidebars = (props) => (
     <div className="sidebar">
         <div className="sidebar__container">
-            <nav className="nav">
-                <h1>Wallpaper</h1>
-                <ul className="nav__categories">
-                    {props.children}
-                </ul>
-            </nav>
+                {props.children}
             <div className="logout">
                 <div className="logout__btn" onClick={props.logOut}></div>
             </div>

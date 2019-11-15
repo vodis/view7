@@ -6,12 +6,14 @@ import { firestoreConnect } from 'react-redux-firebase';
 import LeftSidebars from '../../../components/Layout/LeftSidebars';
 import Main from '../components/Main/Main';
 import Tools from '../components/Tools/Tools';
-import Folder from '../components/Folder/Folder';
+import AddFolder from '../components/AddFolder/AddFolder';
+import FolderList from '../components/FolderList/FolderList'
 
 const Home = (props) => (
     <>
         <LeftSidebars>
-            <Folder {...props} />
+            <AddFolder {...props} />
+            <FolderList {...props} />
         </LeftSidebars>
         <Main {...props} />
         <Tools {...props} />
