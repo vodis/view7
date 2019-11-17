@@ -1,3 +1,6 @@
+@import './mixins.scss';
+@import './variables.scss';
+
 * {
   outline: none;
   box-sizing: border-box;
@@ -29,18 +32,12 @@ ul li {
 }
 
 hr {
-  border-top: 1px solid #eef2f7;
+  border-top: 1px solid $gray-easy;
   margin-top: 6px;
   margin-bottom: 16px;
 }
 
 .container {
-  display: flex;
-  width: 100%;
+  @include flex;
   height: 100vh;
-}
-
-#home {
-  display: flex;
-  width: 100%;
 }

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './AddFolder.scss';
+
 class Folder extends React.Component {
     state= {
         folderName: ''
@@ -24,12 +26,10 @@ class Folder extends React.Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" onChange={(e) => this.setState({ folderName: e.target.value})} />
-                    <button>+</button>
-                </form>
-            </div>
+            <form className="folder-form" onSubmit={this.handleSubmit}>
+                <input type="text" onChange={(e) => this.setState({ folderName: e.target.value})} />
+                <button></button>
+            </form>
         );
     }
 }
