@@ -22,12 +22,15 @@ class Folder extends React.Component {
             .catch(function(error) {
                 console.error("Error writing document: ", error);
             });
+
+        this.setState({ folderName: '' });
     }
 
     render() {
+        const { folderName } = this.state;
         return (
-            <form className="folder-form" onSubmit={this.handleSubmit}>
-                <input type="text" onChange={(e) => this.setState({ folderName: e.target.value})} />
+            <form className="folder-form" onSubmit={this.handleSubmit.bind(this)}>
+                <input type="text" onChange={(e) => this.setState({ folderName: e.target.value})} value={folderName} placeholder="Create New Folder" />
                 <button></button>
             </form>
         );

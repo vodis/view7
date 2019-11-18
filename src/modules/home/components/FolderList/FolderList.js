@@ -23,7 +23,7 @@ class FolderList extends Component {
     }
 
     compare(nextKeys, prevKeys) {
-        return nextKeys.every((key, index) => key !== prevKeys[index]) || nextKeys.length !== prevKeys.length;
+        return nextKeys.length !== prevKeys.length || nextKeys.every((key, index) => key !== prevKeys[index]);
     }
 
     toggleClassByRef = (folderId, action) => {
@@ -55,6 +55,15 @@ class FolderList extends Component {
         return null;
     }
 
+    deleteFolder = (id) => {
+        const { firestore, auth: { uid } } = this.props;
+        firestore.collection('gallery').doc(uid).collection('userCollection').doc(id).delete().then(function() {
+            console.log("Document successfully deleted!");
+        }).catch(function(error) {
+            console.error("Error removing document: ", error);
+        });
+    }
+
     render() {
         const { folderList } = this.state;
         return (
@@ -72,7 +81,7 @@ class FolderList extends Component {
                                 {folder[1].folderName}
                             </span>
                             <button className="icon icon-edit"></button>
-                            <button className="icon icon-delete"></button>
+                            <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
                         </li>
                     ))}
                 </ul>
