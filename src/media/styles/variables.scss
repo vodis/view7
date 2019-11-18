@@ -1,7 +1,6 @@
-
 // colors
-$white: #ffffff;
-$black: #000000;
+$white: #fff;
+$black: #000;
 
 $dark-blue: #3d4f65;
 
@@ -14,3 +13,7 @@ $gray-light: #cccccc;
 $gray-middle: #959595;
 
 $green: #20bb20;
+
+:root {
+  --color: #fff;
+}

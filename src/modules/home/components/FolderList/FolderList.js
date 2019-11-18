@@ -64,12 +64,34 @@ class FolderList extends Component {
         });
     }
 
+    edit = (id) => {
+        console.log(id);
+    }
+
+    handleChangeName = (id, e) => {
+        const { firestore, auth: { uid } } = this.props;
+        firestore.collection('gallery').doc(uid).collection('userCollection').doc(id).set({
+            folderName: e.target.value
+        }).then(function() {
+            console.log("Document successfully written!");
+        }).catch(function(error) {
+            console.error("Error writing document: ", error);
+        });
+
+        // Update state before firestore will have updated
+        const { folderList } = this.state;
+        const index = folderList.findIndex((folder) => folder[0] === id);
+        const updatedFolderList = folderList[index][1].folderName = e.target.value;
+
+        this.setState({ folderList, updatedFolderList })
+    }
+
     render() {
         const { folderList } = this.state;
         return (
             <nav className="nav">
                 <ul className="folder-list" ref={this.folderListRef}>
-                    {folderList && folderList.map((folder) => (
+                    {folderList && folderList.map((folder, index) => (
                         <li
                             onMouseOver={this.toggleClassByRef.bind(this, folder[0], 'edit')} 
                             onMouseLeave={this.toggleClassByRef.bind(this, folder[0], 'delete')}
@@ -77,10 +99,8 @@ class FolderList extends Component {
                             key={folder[0]}
                             id={folder[0]}
                         >
-                            <span>
-                                {folder[1].folderName}
-                            </span>
-                            <button className="icon icon-edit"></button>
+                            <input value={folder[1].folderName} id={index} onChange={this.handleChangeName.bind(this, folder[0])} />
+                            <label htmlFor={index} onClick={this.edit.bind(this, folder[0])} className="icon icon-edit"></label>
                             <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
                         </li>
                     ))}
