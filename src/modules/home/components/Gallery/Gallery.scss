@@ -1,0 +1,55 @@
+@import "../../../../media/styles/variables.scss";
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+
+  h2 {
+    color: $gray;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  &__cards {
+    position: relative;
+    display: inherit;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+    max-width: 1100px;
+    overflow: hidden;
+
+    &-track {
+      display: flex;
+      justify-content: flex-start;
+      align-content: center;
+      width: 100%;
+      transform: translateX(calc(50% - 90px));
+      perspective: 500px;
+    }
+  }
+
+  &__card {
+    display: inline-block;
+    width: 180px;
+    height: 250px;
+    transition: 3s;
+
+    &-img {
+      position: relative;
+      width: 180px;
+      height: 250px;
+      object-fit: cover;
+
+      &:hover {
+        transform: scale(1.05);
+        transition: 1s;
+        z-index: 1;
+      }
+    }
+  }
+}
