@@ -56,7 +56,7 @@ class Gallery extends Component {
         const { matrix } = this.state;
         const pos = matrix[4][2] = e.screenX !== 0 && e.screenX - window.screen.width / 2;
         e.screenX !== 0 && console.log(matrix[4][2] + (e.screenX - window.screen.width / 2))
-        this.setState({ matrix });
+        this.setState({ matrix: pos });
     };
 
     render() {
