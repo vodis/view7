@@ -1,10 +1,26 @@
-@import './variables.scss';
+@import "./variables.scss";
 
 @mixin flex {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
-@mixin for-phone-only {
-    @media (max-width: 599px) { @form; }
+@mixin b($point) {
+  @if $point == desktop {
+    @media (max-width: 1366px) {
+      @content;
+    }
+  } @else if $point == tablet {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  } @else if $point == mobile {
+    @media (max-width: 767px) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $point + "px") {
+      @content;
+    }
+  }
 }

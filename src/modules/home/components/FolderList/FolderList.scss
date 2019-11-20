@@ -1,4 +1,5 @@
 @import "../../../../media/styles/variables.scss";
+@import "../../../../media/styles/mixins.scss";
 
 .nav {
   display: flex;
@@ -13,6 +14,9 @@
     position: relative;
     padding-left: 75px;
     padding-right: 5px;
+    @include b(mobile) {
+      padding-left: 5px;
+    }
 
     &__item {
       display: flex;
@@ -31,6 +35,9 @@
         min-width: 45px;
         min-height: 45px;
         opacity: 0.7;
+        @include b(mobile) {
+          left: 0;
+        }
       }
 
       input {

@@ -1,11 +1,14 @@
-
-@import '../../media/styles/variables.scss';
+@import "../../media/styles/variables.scss";
+@import "../../media/styles/mixins.scss";
 
 .sidebar {
   position: relative;
   width: 300px;
   height: 100%;
   background: #3d4f65;
+  @include b(mobile) {
+    width: 50px;
+  }
 
   h1 {
     color: #dee2e6;
@@ -27,6 +30,13 @@
       padding: 38px 0 25px 0;
       text-transform: uppercase;
       color: $gray;
+      @include b(mobile) {
+        transform: rotate(-90deg);
+        font-size: 16px;
+        padding-top: 29px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
 
     .logout {
@@ -42,6 +52,12 @@
         min-width: 80%;
         min-height: 100%;
         cursor: pointer;
+        @include b(mobile) {
+          background-size: 45% 35%;
+          background-position-x: 60%;
+          min-width: 100%;
+          min-height: 100%;
+        }
 
         &:hover {
           transform: scale(1.05);

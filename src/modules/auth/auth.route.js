@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Route, Switch, Redirect, useHistory } from 'react-router-dom';
-import {loadable} from '../../services/loadable';
+import {loadable} from '../../helpers/loadable';
 import Spinner from '../../components/Spinner/Spinner';
 
 const AuthRouter = (props) => {

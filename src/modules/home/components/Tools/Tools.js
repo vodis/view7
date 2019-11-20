@@ -18,10 +18,12 @@ const Tools = () => {
     return (
         <aside className={classNames('tools', { close })} >
             <button className="tools__btn"></button>
-            <div className="tools__img"></div>
-            <div className="tools__shelf"></div>
-            <div className="tools__append-img"></div>
-            <Checkbox />
+            <div className="tools__container">
+                <div className="tools__img"></div>
+                <div className="tools__shelf"></div>
+                <div className="tools__append-img"></div>
+                <Checkbox />
+            </div>
         </aside>
     );
 };

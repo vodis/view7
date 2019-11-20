@@ -1,5 +1,5 @@
-@import './mixins.scss';
-@import './variables.scss';
+@import "./mixins.scss";
+@import "./variables.scss";
 
 * {
   outline: none;
@@ -40,4 +40,22 @@ hr {
 .container {
   @include flex;
   height: 100vh;
+}
+
+// Scrollbar for Chrome, Safari and Opera
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: $dark-blue;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $gray;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $gray-light;
 }
