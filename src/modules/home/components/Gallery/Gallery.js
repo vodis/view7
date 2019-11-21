@@ -8,18 +8,19 @@ class Gallery extends Component {
         super(props);
         this.getImagesUrl = this.getImagesUrl.bind(this);
         this.state = {
+            trXInit: 459,
             gallery: [],
-            // matrix [index, position, translateX, rotateY, scale, z-index]
             matrix: [
-                [1, -4, -240, -20, 0.80, 1],
-                [2, -3, 60, 20, 0.85, 2],
-                [3, -2, 50, 30, 0.90, 3],
-                [4, -1, 30, 40, 0.95, 4],
-                [5, 0, 0, 0, 1, 5], // First
-                [6, 1, -30, -20, 0.95, 4], // Second
-                [7, 2, -50, -15, 0.90, 3], // Third
-                [8, 3, -60, -20, 0.85, 2], // Fifth
-                [9, 4, -240, -20, 0.80, 1], // Sixth
+                // [index, visible, translateX, rotateY, scale, z-index, perspective],
+                [1, 0, 240, 5, 0.7, 1, 1000],
+                [2, 1, 60, 10, 0.85, 2, 1000],
+                [3, 1, 50, 15, 0.90, 3, 1000],
+                [4, 1, 30, 30, 0.95, 4, 1000],
+                [5, 1, 0, 0, 1, 5, 1000], 
+                [6, 1, -30, -30, 0.95, 4, 1000],
+                [7, 1, -50, -15, 0.90, 3, 1000],
+                [8, 1, -60, -10, 0.85, 2, 1000],
+                [9, 0, -240, -5, 0.7, 1, 1000],
             ],
         }
     }
@@ -31,7 +32,7 @@ class Gallery extends Component {
     getImagesUrl = () => {
         const { firebase, auth: { uid }} = this.props;
         const storage = firebase.storage();
-        let i = 3;
+        let i = 4;
         
         storage.ref().child(`/${uid}/Miscellanea`).listAll()
             .then((res) => {
@@ -54,43 +55,67 @@ class Gallery extends Component {
     }
 
     dragCapture = (e) => {
-        const { currentPositionX, matrix } = this.state;
+        const { currentPositionX, gallery, trXInit } = this.state;
 
         if (e.screenX) {
-            let newPosX;
-            if (currentPositionX > e.screenX) newPosX = (currentPositionX - e.screenX) * -1;
-            if (currentPositionX < e.screenX) newPosX = (e.screenX - currentPositionX);
-                
-            const re = /translateX\+|-(\d{1,4})/g;
-            const shift = e.currentTarget.style.transform.match(re) ? -1 : 0;
-            
-            const trX = newPosX + shift;
-            matrix[4][2] = trX;
+            if (currentPositionX - e.screenX > 10) {
+                const trX = trXInit - 175;
+                gallery.forEach(el => {
+                    return el[1] -= 1;
+                });
 
-            this.setState(() => (
-                matrix
-            ));
+                return this.setState((callback) => {
+                    return {
+                        ...callback,
+                        gallery,
+                        trXInit: trX,
+                    }
+                });
+            }
+
+            if (currentPositionX - e.screenX < 0) {
+                const trX = trXInit + 175;
+                gallery.forEach(el => {
+                    return el[1] += 1;
+                });
+
+                return this.setState((callback) => {
+                    return {
+                        ...callback,
+                        gallery,
+                        trXInit: trX,
+                    }
+                });
+            }
         }
     };
 
     render() {
-        const { gallery, matrix } = this.state;
+        const { gallery, matrix, trXInit } = this.state;
+        const getTrackPosId = (img) => img >= 0 && img < 8 ? img : 8;
 
         return (
             <div className="gallery">
                 <h2>Navigation for one-directional scrolling by images</h2>
                 <div className="gallery__cards">
-                    <div className="gallery__cards-track">
-                        {gallery.map((img, i) => {
-                            let posX = img[1] < 5 ? img[1] : 8;
+                    <div className="gallery__cards-track" style={{transform: `translateX(${trXInit}px)`}}>
+                        {gallery.length > 0 && gallery.map((img, i) => {
+                            let trackId = getTrackPosId(img[1]);
+                            let view = matrix[trackId][1] ? "visible" : "hidden";
                             return (
-                                <div className="gallery__card" key={i} id={i} onDragCapture={this.dragCapture} onMouseDown={(posX) => this.setState({ currentPositionX: posX.screenX })}
+                                <div className={"gallery__card"} key={i} posx={trackId} onDragEndCapture={this.dragCapture} onMouseDown={(trackId) => this.setState({ currentPositionX: trackId.screenX })}
                                     style={{
-                                        transform: `translateX(${matrix[posX][2]}px) rotateY(${matrix[posX][3]}deg) scale(${matrix[posX][4]})`,
-                                        zIndex: matrix[posX][5]
+                                        transform: `
+                                            perspective(${matrix[trackId][6]}px)
+                                            translateX(${matrix[trackId][2]}px) 
+                                            rotateY(${matrix[trackId][3]}deg) 
+                                            scale(${matrix[trackId][4]})
+                                            `,
+                                        zIndex: matrix[trackId][5],
+                                        visibility: view,
                                     }}
                                 >
-                                    <img className="gallery__card-img" src={img} alt={i} />
+                                    <img className="gallery__card-img" src={img[0]} alt={i} />
                                 </div>
                             );
                         })}

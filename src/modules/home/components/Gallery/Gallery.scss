@@ -27,17 +27,17 @@
       display: flex;
       justify-content: flex-start;
       align-content: center;
-      width: 100%;
-      transform: translateX(calc(50% - 90px));
-      perspective: 500px;
+      width: 1750px;
+      transition: 1s;
     }
   }
 
   &__card {
     display: inline-block;
-    width: 180px;
+    width: 175px;
     height: 250px;
-    transition: 3s;
+    transition: 1s;
+
 
     &-img {
       position: relative;
