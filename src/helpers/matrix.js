@@ -1,29 +1,60 @@
 class matrix {
-    constructor(gallery) {
-        this.galleryList = gallery;
-        this.galleryListWithPosition = [];
+    constructor(props) {
         this.state = {
+            trXInit: 459,
             matrix: [
-                // matrix [index, position, translateX, rotateY, scale, z-index]
-                [1, -4, -240, -20, 0.80, 1],          // Before Sixth
-                [2, -3, 60, 20, 0.85, 2],             // Before Fifth
-                [3, -2, 50, 30, 0.90, 3],             // Before Third
-                [4, -1, 30, 40, 0.95, 4],             // Before Second
-                [5, 0, 0, 0, 1, 5],                   // First 
-                [6, 1, -30, -20, 0.95, 4],            // After Second
-                [7, 2, -50, -15, 0.90, 3],            // After Third
-                [8, 3, -60, -20, 0.85, 2],            // After Fifth
-                [9, 4, -240, -20, 0.80, 1],           // After Sixth
+                // [index, visible, translateX, rotateY, scale, z-index, perspective],
+                [1, 0, 240, 5, 0.7, 1, 1000],
+                [2, 1, 60, 10, 0.85, 2, 1000],
+                [3, 1, 50, 15, 0.90, 3, 1000],
+                [4, 1, 30, 30, 0.95, 4, 1000],
+                [5, 1, 0, 0, 1, 5, 1000], 
+                [6, 1, -30, -30, 0.95, 4, 1000],
+                [7, 1, -50, -15, 0.90, 3, 1000],
+                [8, 1, -60, -10, 0.85, 2, 1000],
+                [9, 0, -240, -5, 0.7, 1, 1000],
             ],
+        };
+        if (window.screen.width < 767) this.state = { trXInit: 125 };
+    }
+
+    valid(img) {
+        return img.length && img.length === 2;
+    }
+
+    getTrackPosition(img) {
+        return img[1] >= 0 && img[1] < 8 ? img[1] : 8;
+    }
+
+    getInitialTransitionX() {
+        return this.state.trXInit;
+    }
+    
+    getImagePosition = (img) => {
+        const isValid = this.valid(img);
+        
+        if (isValid) {
+            let { matrix } = this.state;
+            let pos = this.getTrackPosition(img);
+
+            let visibility = matrix[pos][1] ? "visible" : "hidden";
+            let perspective = matrix[pos][6];
+            let translateX = matrix[pos][2];
+            let rotateY = matrix[pos][3];
+            let scale = matrix[pos][4];
+            let zIndex = matrix[pos][5];
+
+            return {
+                transform: `
+                    perspective(${perspective}px)
+                    translateX(${translateX}px) 
+                    rotateY(${rotateY}deg) 
+                    scale(${scale})
+                    `,
+                zIndex,
+                visibility,
+            };
         }
-    }
-
-    setPosition() {
-        console.log(this.galleryList[0])
-    }
-
-    getPosition() {
-
     }
 }
 

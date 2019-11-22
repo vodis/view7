@@ -1,27 +1,15 @@
 import React, { Component } from 'react';
-// import matrix from '../../../../helpers/matrix';
+import matrix from '../../../../helpers/matrix';
 
 import './Gallery.scss';
 
 class Gallery extends Component {
     constructor(props) {
         super(props);
-        this.getImagesUrl = this.getImagesUrl.bind(this);
+        this.matrix = new matrix();
         this.state = {
-            trXInit: 459,
+            trXInit: this.matrix.getInitialTransitionX(),
             gallery: [],
-            matrix: [
-                // [index, visible, translateX, rotateY, scale, z-index, perspective],
-                [1, 0, 240, 5, 0.7, 1, 1000],
-                [2, 1, 60, 10, 0.85, 2, 1000],
-                [3, 1, 50, 15, 0.90, 3, 1000],
-                [4, 1, 30, 30, 0.95, 4, 1000],
-                [5, 1, 0, 0, 1, 5, 1000], 
-                [6, 1, -30, -30, 0.95, 4, 1000],
-                [7, 1, -50, -15, 0.90, 3, 1000],
-                [8, 1, -60, -10, 0.85, 2, 1000],
-                [9, 0, -240, -5, 0.7, 1, 1000],
-            ],
         }
     }
 
@@ -91,8 +79,7 @@ class Gallery extends Component {
     };
 
     render() {
-        const { gallery, matrix, trXInit } = this.state;
-        const getTrackPosId = (img) => img >= 0 && img < 8 ? img : 8;
+        const { gallery, trXInit } = this.state;
 
         return (
             <div className="gallery">
@@ -100,20 +87,13 @@ class Gallery extends Component {
                 <div className="gallery__cards">
                     <div className="gallery__cards-track" style={{transform: `translateX(${trXInit}px)`}}>
                         {gallery.length > 0 && gallery.map((img, i) => {
-                            let trackId = getTrackPosId(img[1]);
-                            let view = matrix[trackId][1] ? "visible" : "hidden";
                             return (
-                                <div className={"gallery__card"} key={i} posx={trackId} onDragEndCapture={this.dragCapture} onMouseDown={(trackId) => this.setState({ currentPositionX: trackId.screenX })}
-                                    style={{
-                                        transform: `
-                                            perspective(${matrix[trackId][6]}px)
-                                            translateX(${matrix[trackId][2]}px) 
-                                            rotateY(${matrix[trackId][3]}deg) 
-                                            scale(${matrix[trackId][4]})
-                                            `,
-                                        zIndex: matrix[trackId][5],
-                                        visibility: view,
-                                    }}
+                                <div key={i}
+                                    className={"gallery__card"}  
+                                    posx={this.matrix.getTrackPosition(img)} 
+                                    onDragEndCapture={this.dragCapture} 
+                                    onMouseDown={(pos) => this.setState({ currentPositionX: pos.screenX })}
+                                    style={this.matrix.getImagePosition(img)}
                                 >
                                     <img className="gallery__card-img" src={img[0]} alt={i} />
                                 </div>
