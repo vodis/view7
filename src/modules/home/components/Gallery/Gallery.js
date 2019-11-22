@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import matrix from '../../../../helpers/matrix';
+import { connect } from 'react-redux';
+import { addSlideShowURL } from '../../actions/slideshow.actions';
 
 import './Gallery.scss';
 
@@ -15,6 +17,14 @@ class Gallery extends Component {
 
     componentDidMount() {
         this.getImagesUrl();
+    }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        if (nextProps.gallery !== nextState.gallery) {
+            const mainImage = nextState.gallery.find(img => img[1] === 4);
+            this.props.addSlideShowURL(mainImage);
+        }
+        return true;
     }
 
     getImagesUrl = () => {
@@ -105,5 +115,7 @@ class Gallery extends Component {
         );
     }
 }
- 
-export default Gallery;
+
+export default connect(null, dispatch => ({
+    addSlideShowURL: (url) => dispatch(addSlideShowURL(url))
+}))(Gallery);
