@@ -15,7 +15,7 @@ class matrix {
                 [9, 0, -240, -5, 0.7, 1, 1000],
             ],
         };
-        if (window.screen.width < 767) this.state = { trXInit: 125 };
+        if (window.screen.width < 767) this.state.trXInit =  125;
     }
 
     valid(img) {
@@ -30,7 +30,7 @@ class matrix {
         return this.state.trXInit;
     }
     
-    getImagePosition = (img) => {
+    getImagePosition =(img) => {
         const isValid = this.valid(img);
         
         if (isValid) {

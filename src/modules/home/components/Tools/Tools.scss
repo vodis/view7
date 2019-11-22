@@ -3,15 +3,15 @@
 
 .tools {
   background: #fff;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 300px;
+  right: 0px;
   width: calc(100% - 300px);
   height: 100vh;
   transition: all 1s;
+  z-index: 4;
   @include b(mobile) {
     width: calc(100% - 50px);
-    left: 50px;
   }
 
   &__container {
@@ -31,8 +31,16 @@
     color: #6c757d;
   }
 
+  &.open {
+    transform: translateX(calc(100% - 300px));
+    width: 300px;
+    @include b(mobile) {
+      transform: translateX(calc(100% - 250px));
+    }
+  }
+
   &.close {
-    left: calc(100% - 5px);
+    transform: translateX(calc(100% - 5px));
     width: 300px;
   }
 
@@ -46,6 +54,7 @@
     border-radius: 10px 0 0 10px;
     margin-top: -150px;
     animation: reducer 0.5s ease-in-out 2s 1 forwards;
+    cursor: pointer;
     @include b(mobile) {
       top: 82px;
     }

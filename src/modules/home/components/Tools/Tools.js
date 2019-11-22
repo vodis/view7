@@ -6,22 +6,28 @@ import Checkbox from '../../../../components/Checkbox/Checkbox';
 import './Tools.scss'
 
 const Tools = () => {
-    const [close, setStyle] = useState(false);
-    
+    const [state, setTogglePanel] = useState({
+        close: false,
+        open: false,
+    });
+
     useEffect(() => {
         const timerID = setTimeout(() => {
-            setStyle(true);
+            setTogglePanel({
+                close: true,
+                open: false,
+            });
         }, 1000);
         return () => clearTimeout(timerID);
     }, [])
 
     return (
-        <aside className={classNames('tools', { close })} >
-            <button className="tools__btn"></button>
+        <aside className={classNames('tools', { close: state.close }, { open: state.open })} >
+            <button className="tools__btn" onClick={() => setTogglePanel({
+                close: !state.close,
+                open: !state.open,
+            })}></button>
             <div className="tools__container">
-                <div className="tools__img"></div>
-                <div className="tools__shelf"></div>
-                <div className="tools__append-img"></div>
                 <Checkbox />
             </div>
         </aside>

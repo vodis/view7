@@ -56,6 +56,10 @@
         transform: scale(1.05);
         transition: 1s;
         z-index: 1;
+        cursor: grab;
+      }
+      &:active {
+        cursor: grabbing;
       }
     }
   }
