@@ -37,6 +37,12 @@ hr {
   margin-bottom: 16px;
 }
 
+p {
+  margin: 0;
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
 .container {
   @include flex;
   height: 100vh;

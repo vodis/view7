@@ -4,15 +4,37 @@
 .gallery {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 50%;
 
-  h2 {
+  .main-info {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    height: 100px;
     color: $gray;
     text-align: center;
     text-transform: uppercase;
+
+    &__caption {
+      position: fixed;
+      width: 100%;
+      line-height: 100px;
+      font-size: 70px;
+      color: $white;
+      font-weight: bold;
+      transform: translate3d(-100px, -100px, 0);
+    }
+
+    &__text {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      font-size: 18px;
+    }
   }
 
   &__cards {
@@ -51,12 +73,14 @@
       max-width: 180px;
       max-height: 250px;
       object-fit: cover;
+      transition: transform 0.3s;
+      transform: scale(1);
+      cursor: grab;
+      z-index: 1;
+      will-change: transform;
 
       &:hover {
         transform: scale(1.05);
-        transition: 1s;
-        z-index: 1;
-        cursor: grab;
       }
       &:active {
         cursor: grabbing;

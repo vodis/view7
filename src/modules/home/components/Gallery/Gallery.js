@@ -3,6 +3,9 @@ import matrix from '../../../../helpers/matrix';
 import { connect } from 'react-redux';
 import { addSlideShowURL } from '../../actions/slideshow.actions';
 
+import GalleryPanel from '../GalleryPanel/GalleryPanel';
+import GalleryNavigation from '../GalleryNavigation/GalleryNavigation';
+
 import './Gallery.scss';
 
 class Gallery extends Component {
@@ -93,7 +96,12 @@ class Gallery extends Component {
 
         return (
             <div className="gallery">
-                <h2>Navigation for one-directional scrolling by images</h2>
+                <div className="main-info">
+                    <div className="main-info__caption">Folder_Gallery</div>
+                    <div className="main-info__text">
+                        <p>Newer swiper for one-directional scrolling with item based navigation support.</p>
+                    </div>
+                </div>
                 <div className="gallery__cards">
                     <div className="gallery__cards-track" style={{transform: `translateX(${trXInit}px)`}}>
                         {gallery.length > 0 && gallery.map((img, i) => {
@@ -111,6 +119,8 @@ class Gallery extends Component {
                         })}
                     </div>
                 </div>
+                <GalleryNavigation />
+                <GalleryPanel />
             </div>
         );
     }
