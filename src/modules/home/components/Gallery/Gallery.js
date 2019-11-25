@@ -30,11 +30,22 @@ class Gallery extends Component {
         return true;
     }
 
+    getFoldersList = () => {
+        const { firebase, auth: { uid }} = this.props;
+        const storage = firebase.storage();
+
+        storage.ref().child(`/${uid}`).listAll()
+            .then((res) => {
+                console.log(res)
+            })
+            .catch((error) => console.log(error));
+    }
+
     getImagesUrl = () => {
         const { firebase, auth: { uid }} = this.props;
         const storage = firebase.storage();
         let i = 4;
-        
+
         storage.ref().child(`/${uid}/Miscellanea`).listAll()
             .then((res) => {
                 res.items.forEach((itemRef) => {
@@ -50,9 +61,7 @@ class Gallery extends Component {
                     })
                 });
             })
-            .catch((error) => {
-                console.log(error)
-            });
+            .catch((error) => console.log(error));
     }
 
     dragCapture = (e) => {

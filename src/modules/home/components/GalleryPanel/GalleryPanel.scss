@@ -24,11 +24,16 @@
       bottom: 35px;
 
       .board {
-        display: inline-block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
         height: 100%;
         z-index: 0;
         border-top: 10px solid $gray-easy;
+        @include b(tablet) {
+          border-top: none;
+        }
       }
 
       .board-gray {
@@ -80,6 +85,14 @@
               display: none;
             }
           }
+        }
+      }
+
+      &__caption {
+        flex-direction: column;
+
+        h3 {
+          margin: 0;
         }
       }
     }

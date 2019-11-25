@@ -26,6 +26,10 @@
       color: $white;
       font-weight: bold;
       transform: translate3d(-100px, -100px, 0);
+      @include b(tablet) {
+        font-size: 1.5rem;
+        transform: translate3d(-5%, -90px, 0);
+      }
     }
 
     &__text {
@@ -34,6 +38,9 @@
       align-items: center;
       height: 100%;
       font-size: 18px;
+      @include b(tablet) {
+        font-size: 0.7rem;
+      }
     }
   }
 

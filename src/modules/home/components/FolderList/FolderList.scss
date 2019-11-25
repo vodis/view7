@@ -43,10 +43,13 @@
       input {
         display: inline-block;
         width: calc(100% - 80px);
-        background: $dark-blue;
+        background: $gray;
+        border-bottom: 1px solid rgba(14, 10, 10, 0.5);
         color: $white;
-        line-height: 45px;
+        line-height: 42px;
         font-size: 16px;
+        padding-left: 5px;
+        padding-right: 5px;
       }
 
       button {
@@ -69,6 +72,7 @@
             animation-fill-mode: forwards;
             animation-delay: 0s;
             right: -100px;
+            cursor: pointer;
           }
 
           &-delete {
@@ -84,6 +88,7 @@
             animation-fill-mode: forwards;
             animation-delay: 0.2s;
             right: -100px;
+            cursor: pointer;
           }
 
           @keyframes btn {
@@ -96,6 +101,11 @@
           }
         }
       }
+    }
+
+    &__name {
+      width: 100%;
+      cursor: default;
     }
   }
 }

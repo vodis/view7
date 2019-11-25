@@ -3,13 +3,20 @@ import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
+import { getFolderName } from '../../actions/folders.actions';
+
 import './FolderList.scss';
 
 class FolderList extends Component {
     constructor(props) {
         super(props);
         this.folderListRef = React.createRef();
-        this.state = { gallery: {}, folderList: null, active: false };
+        this.state = { 
+            gallery: {}, 
+            folderList: null, 
+            active: false,
+            editNow: false, 
+        };
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -64,7 +71,7 @@ class FolderList extends Component {
     }
 
     edit = (id) => {
-        console.log(id);
+        this.setState({ editNow: id })
     }
 
     handleChangeName = (id, e) => {
@@ -86,7 +93,8 @@ class FolderList extends Component {
     }
 
     render() {
-        const { folderList } = this.state;
+        const { folderList, editNow } = this.state;
+
         return (
             <nav className="nav">
                 <ul className="folder-list" ref={this.folderListRef}>
@@ -98,8 +106,21 @@ class FolderList extends Component {
                             key={folder[0]}
                             id={folder[0]}
                         >
-                            <input value={folder[1].folderName} id={index} onChange={this.handleChangeName.bind(this, folder[0])} />
-                            <label htmlFor={index} onClick={this.edit.bind(this, folder[0])} className="icon icon-edit"></label>
+                            {editNow !== folder[0] && 
+                                <span className="folder-list__name">{folder[1].folderName}</span>}
+                            {editNow === folder[0] &&
+                                <input 
+                                    value={folder[1].folderName} 
+                                    id={index} 
+                                    onChange={this.handleChangeName.bind(this, folder[0])} 
+                                    onBlur={() => this.setState({editNow: ''})}    
+                                />
+                            }
+                            <label 
+                                htmlFor={index}
+                                onClick={this.edit.bind(this, folder[0])} 
+                                className="icon icon-edit"
+                            ></label>
                             <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
                         </li>
                     ))}
@@ -108,6 +129,14 @@ class FolderList extends Component {
         );
     }
 }
+
+const mapStateToProps = ({ firestore: { data }}) => ({
+    gallery: data && data.folder
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    getFolderName: (name) => dispatch(getFolderName(name)),
+});
  
 export default compose(
     firestoreConnect((props) => {
@@ -124,9 +153,5 @@ export default compose(
             }
         ]
     }),
-    connect(({ firestore: { data }}) => {
-        return {
-            gallery: data && data.folder
-        }
-    })
+    connect(mapStateToProps, mapDispatchToProps)
 )(FolderList);

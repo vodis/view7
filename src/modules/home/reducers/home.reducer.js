@@ -1,5 +1,6 @@
 const initialState = {
     url: [],
+    currentFolder: "",
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -9,6 +10,11 @@ export default function homeReducer(state = initialState, action) {
                 ...state,
                 url: action.payload
             };
+        case "":
+            return {
+                ...state,
+                currentFolder: action.payload
+            }
         default:
             return state;
     }

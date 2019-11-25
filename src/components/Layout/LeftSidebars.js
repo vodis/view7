@@ -18,7 +18,7 @@ const LeftSidebars = (props) => (
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        logOut: () => dispatch(logOut()) 
+        logOut: () => dispatch(logOut()),
     };
 };
 
