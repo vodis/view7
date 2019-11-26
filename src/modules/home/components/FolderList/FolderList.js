@@ -149,6 +149,10 @@ class FolderList extends Component {
                                     })}
                                 </ul>
                             </li>
+                            <label className="btn__add-image">
+                                Add Image
+                                <input style={{ display: "none" }} type="file" ref={this.fileInput}  onChange={e => console.log(e)}/>
+                            </label>
                         </Fragment>
                     ))}
                 </ul>

@@ -124,5 +124,18 @@
         text-overflow: ellipsis;
       }
     }
+
+    .btn {
+      &__add-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid $purple-deep;
+        color: $purple-deep;
+        width: 100px;
+        height: 25px;
+        margin: 10px 0 15px;
+      }
+    }
   }
 }
