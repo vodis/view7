@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -14,6 +14,7 @@ class FolderList extends Component {
         this.state = { 
             gallery: {}, 
             folderList: null, 
+            currentImageList: [],
             active: false,
             editNow: false, 
         };
@@ -25,6 +26,11 @@ class FolderList extends Component {
             const folderList = Object.entries(gallery);
             this.setState({ gallery, folderList });
         }
+        
+        if (nextProps.currentImageList.length !== this.state.currentImageList.length) {
+            this.setState({ currentImageList: nextProps.currentImageList })
+        }
+
         return true;
     }
 
@@ -92,6 +98,11 @@ class FolderList extends Component {
         this.setState({ folderList, updatedFolderList })
     }
 
+    setFolderName = (id) => {
+        this.props.getFolderName(id);
+        this.setState({ currentImageList: [] });
+    }
+
     render() {
         const { folderList, editNow } = this.state;
 
@@ -99,30 +110,46 @@ class FolderList extends Component {
             <nav className="nav">
                 <ul className="folder-list" ref={this.folderListRef}>
                     {folderList && folderList.map((folder, index) => (
-                        <li
-                            onMouseOver={this.toggleClassByRef.bind(this, folder[0], 'edit')} 
-                            onMouseLeave={this.toggleClassByRef.bind(this, folder[0], 'delete')}
-                            className='folder-list__item'
-                            key={folder[0]}
-                            id={folder[0]}
-                        >
-                            {editNow !== folder[0] && 
-                                <span className="folder-list__name">{folder[1].folderName}</span>}
-                            {editNow === folder[0] &&
-                                <input 
-                                    value={folder[1].folderName} 
-                                    id={index} 
-                                    onChange={this.handleChangeName.bind(this, folder[0])} 
-                                    onBlur={() => this.setState({editNow: ''})}    
-                                />
-                            }
-                            <label 
-                                htmlFor={index}
-                                onClick={this.edit.bind(this, folder[0])} 
-                                className="icon icon-edit"
-                            ></label>
-                            <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
-                        </li>
+                        <Fragment key={folder[0]}>
+                            <li
+                                onMouseOver={this.toggleClassByRef.bind(this, folder[0], 'edit')} 
+                                onMouseLeave={this.toggleClassByRef.bind(this, folder[0], 'delete')}
+                                className='folder-list__item'
+                                id={folder[0]}
+                            >
+                                {editNow !== folder[0] && 
+                                    <span 
+                                        className="folder-list__name"
+                                        onClick={this.setFolderName.bind(this, folder[0])}
+                                    >{folder[1].folderName}</span>}
+                                {editNow === folder[0] &&
+                                    <input 
+                                        value={folder[1].folderName} 
+                                        id={index} 
+                                        onChange={this.handleChangeName.bind(this, folder[0])} 
+                                        onBlur={() => this.setState({editNow: ''})}    
+                                    />
+                                }
+                                <label 
+                                    htmlFor={index}
+                                    onClick={this.edit.bind(this, folder[0])} 
+                                    className="icon icon-edit"
+                                ></label>
+                                <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
+                            </li>
+                            <li key={"sub_" + folder[0]}>
+                                <ul className="images-list">
+                                    {this.props.currentFolder === folder[0] && this.state.currentImageList.map((image, i) => {
+                                        let name = image[0].split('%2F')[2].split('?')[0];
+                                        return (
+                                            <Fragment key={i}>
+                                                <li>{name}</li>
+                                            </Fragment>
+                                        )
+                                    })}
+                                </ul>
+                            </li>
+                        </Fragment>
                     ))}
                 </ul>
             </nav>
@@ -130,9 +157,12 @@ class FolderList extends Component {
     }
 }
 
-const mapStateToProps = ({ firestore: { data }}) => ({
-    gallery: data && data.folder
-});
+const mapStateToProps = ({ firestore: { data }, homeReducer}) => {
+    return {
+        gallery: data && data.folder,
+        currentImageList: homeReducer.currentImageList,
+        currentFolder: homeReducer.currentFolder,
+}};
 
 const mapDispatchToProps = (dispatch) => ({
     getFolderName: (name) => dispatch(getFolderName(name)),

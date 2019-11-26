@@ -23,6 +23,7 @@ class SliderShow extends React.Component {
     }
 }
 
-export default connect((state) => ({
-    url: state.homeReducer.url,
-}), null)(SliderShow);
+export default connect((state) => {
+    return {
+        url: state.homeReducer.url,
+}}, null)(SliderShow);

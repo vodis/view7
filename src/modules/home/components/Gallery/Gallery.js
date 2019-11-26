@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import matrix from '../../../../helpers/matrix';
 import { connect } from 'react-redux';
 import { addSlideShowURL } from '../../actions/slideshow.actions';
+import { setCurrentImageList } from '../../actions/folders.actions';
 
 import GalleryPanel from '../GalleryPanel/GalleryPanel';
 import GalleryNavigation from '../GalleryNavigation/GalleryNavigation';
@@ -15,38 +16,31 @@ class Gallery extends Component {
         this.state = {
             trXInit: this.matrix.getInitialTransitionX(),
             gallery: [],
+            currentFolder: "",
         }
-    }
-
-    componentDidMount() {
-        this.getImagesUrl();
     }
 
     shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.gallery !== nextState.gallery) {
             const mainImage = nextState.gallery.find(img => img[1] === 4);
             this.props.addSlideShowURL(mainImage);
+            this.props.setCurrentImageList(nextState.gallery);
         }
+
+        if (nextProps.currentFolder !== nextState.currentFolder) {
+            this.setState({ gallery: [], trXInit: this.matrix.getInitialTransitionX() });
+            this.getFoldersList(nextProps.currentFolder);
+        }
+
         return true;
     }
 
-    getFoldersList = () => {
-        const { firebase, auth: { uid }} = this.props;
-        const storage = firebase.storage();
-
-        storage.ref().child(`/${uid}`).listAll()
-            .then((res) => {
-                console.log(res)
-            })
-            .catch((error) => console.log(error));
-    }
-
-    getImagesUrl = () => {
+    getFoldersList = (currentFolder) => {
         const { firebase, auth: { uid }} = this.props;
         const storage = firebase.storage();
         let i = 4;
 
-        storage.ref().child(`/${uid}/Miscellanea`).listAll()
+        storage.ref().child(`/${uid}/${currentFolder}`).listAll()
             .then((res) => {
                 res.items.forEach((itemRef) => {
                     itemRef.getDownloadURL().then((url) => {
@@ -62,6 +56,8 @@ class Gallery extends Component {
                 });
             })
             .catch((error) => console.log(error));
+
+        this.setState({ currentFolder });
     }
 
     dragCapture = (e) => {
@@ -135,6 +131,11 @@ class Gallery extends Component {
     }
 }
 
-export default connect(null, dispatch => ({
-    addSlideShowURL: (url) => dispatch(addSlideShowURL(url))
-}))(Gallery);
+export default connect(
+    store => ({
+        currentFolder: store.homeReducer.currentFolder
+    }), 
+    dispatch => ({
+        addSlideShowURL: (url) => dispatch(addSlideShowURL(url)),
+        setCurrentImageList: (arr) => dispatch(setCurrentImageList(arr)),
+    }))(Gallery);

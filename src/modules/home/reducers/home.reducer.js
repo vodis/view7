@@ -1,6 +1,7 @@
 const initialState = {
     url: [],
     currentFolder: "",
+    currentImageList: [],
 };
 
 export default function homeReducer(state = initialState, action) {
@@ -10,10 +11,15 @@ export default function homeReducer(state = initialState, action) {
                 ...state,
                 url: action.payload
             };
-        case "":
+        case "GET_FOLDER_NAME":
             return {
                 ...state,
                 currentFolder: action.payload
+            }
+        case "SET_CURRENT_IMAGE_LIST":
+            return {
+                ...state,
+                currentImageList: action.payload
             }
         default:
             return state;
