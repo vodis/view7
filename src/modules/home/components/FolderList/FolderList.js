@@ -103,6 +103,27 @@ class FolderList extends Component {
         this.setState({ currentImageList: [] });
     }
 
+    uploadImage = (currentFolder, file) => {
+        const { firebase,  auth: { uid } } = this.props;
+        const storage = firebase.storage();
+
+        let imageFile = file.target.files;
+        let imageReader = new FileReader();
+        imageReader.readAsDataURL(imageFile[0]);
+
+        imageReader.onload = (action) => {
+            const base64URL = action.target.result;
+            
+            fetch(base64URL)
+                .then(res => res.blob())
+                .then(blog => {
+                    storage.ref().child(`/${uid}/${currentFolder}/${imageFile[0].name}`).put(blog)
+                        .then((snapshot) => console.log("Uploaded a blob or file", snapshot));
+                })
+        }
+
+    }
+
     render() {
         const { folderList, editNow } = this.state;
 
@@ -151,7 +172,7 @@ class FolderList extends Component {
                             </li>
                             <label className="btn__add-image">
                                 Add Image
-                                <input style={{ display: "none" }} type="file" ref={this.fileInput}  onChange={e => console.log(e)}/>
+                                <input style={{ display: "none" }} type="file" onChange={this.uploadImage.bind(this, folder[0])}/>
                             </label>
                         </Fragment>
                     ))}
