@@ -2,7 +2,6 @@
 @import "../../../../media/styles/mixins.scss";
 
 .tools {
-  background: #fff;
   position: fixed;
   top: 0;
   right: 0px;
@@ -10,6 +9,11 @@
   height: 100vh;
   transition: all 1s;
   z-index: 4;
+  
+  &__light {
+    background: $white;
+  }
+
   @include b(mobile) {
     width: calc(100% - 50px);
   }
