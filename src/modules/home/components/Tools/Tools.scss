@@ -7,11 +7,17 @@
   right: 0px;
   width: calc(100% - 300px);
   height: 100vh;
-  transition: all 1s;
+  transition: transform 1s;
   z-index: 4;
-  
-  &__light {
+
+  &--light {
     background: $white;
+  }
+
+  &--dark {
+    box-shadow: 0 5px 10px -5px $white;
+    background: $black;
+    color: $white;
   }
 
   @include b(mobile) {
@@ -50,7 +56,6 @@
 
   &__btn {
     position: absolute;
-    background: #fff;
     width: 50px;
     height: 40px;
     top: 100px;
@@ -59,6 +64,16 @@
     margin-top: -150px;
     animation: reducer 0.5s ease-in-out 2s 1 forwards;
     cursor: pointer;
+
+    &--light {
+      background: $white;
+    }
+
+    &--dark {
+      background: $black;
+      box-shadow: 0 5px 10px -10px $white;
+    }
+
     @include b(mobile) {
       top: 82px;
     }

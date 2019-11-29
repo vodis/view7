@@ -5,10 +5,18 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: url("../../../../media/img/gray-grid.png") no-repeat center
-    center/cover;
   width: calc(100% - 300px);
   height: 100vh;
+
+  &--light {
+    background: url("../../../../media/img/gray-grid.png") no-repeat center
+      center/cover;
+  }
+
+  &--dark {
+    background: $black-light;
+  }
+
   @include b(mobile) {
     width: calc(100% - 50px);
   }

@@ -125,7 +125,7 @@ class Gallery extends Component {
                     </div>
                 </div>
                 <GalleryNavigation />
-                <GalleryPanel />
+                <GalleryPanel {...this.props}/>
             </div>
         );
     }

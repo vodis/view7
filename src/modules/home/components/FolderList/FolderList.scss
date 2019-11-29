@@ -10,6 +10,22 @@
   overflow: hidden;
   overflow-y: scroll;
 
+  &--light {
+    button {
+      background: $dark-blue;
+      width: 40px;
+    }
+  }
+
+  &--dark {
+    right: -5px;
+
+    button {
+      background: $black;
+      width: 40px;
+    }
+  }
+
   .folder-list {
     position: relative;
     padding-left: 75px;
@@ -50,11 +66,6 @@
         font-size: 16px;
         padding-left: 5px;
         padding-right: 5px;
-      }
-
-      button {
-        background: $dark-blue;
-        width: 40px;
       }
 
       &.active {

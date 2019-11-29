@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 import { getFolderName } from '../../actions/folders.actions';
+import { ThemeContext } from '../../../../context/theme-context'
 
 import './FolderList.scss';
 
@@ -128,56 +129,60 @@ class FolderList extends Component {
         const { folderList, editNow } = this.state;
 
         return (
-            <nav className="nav">
-                <ul className="folder-list" ref={this.folderListRef}>
-                    {folderList && folderList.map((folder, index) => (
-                        <Fragment key={folder[0]}>
-                            <li
-                                onMouseOver={this.toggleClassByRef.bind(this, folder[0], 'edit')} 
-                                onMouseLeave={this.toggleClassByRef.bind(this, folder[0], 'delete')}
-                                className='folder-list__item'
-                                id={folder[0]}
-                            >
-                                {editNow !== folder[0] && 
-                                    <span 
-                                        className="folder-list__name"
-                                        onClick={this.setFolderName.bind(this, folder[0])}
-                                    >{folder[1].folderName}</span>}
-                                {editNow === folder[0] &&
-                                    <input 
-                                        value={folder[1].folderName} 
-                                        id={index} 
-                                        onChange={this.handleChangeName.bind(this, folder[0])} 
-                                        onBlur={() => this.setState({editNow: ''})}    
-                                    />
-                                }
-                                <label 
-                                    htmlFor={index}
-                                    onClick={this.edit.bind(this, folder[0])} 
-                                    className="icon icon-edit"
-                                ></label>
-                                <button onClick={this.deleteFolder.bind(this, folder[0])} className="icon icon-delete"></button>
-                            </li>
-                            <li key={"sub_" + folder[0]}>
-                                <ul className="images-list">
-                                    {this.props.currentFolder === folder[0] && this.state.currentImageList.map((image, i) => {
-                                        let name = image[0].split('%2F')[2].split('?')[0];
-                                        return (
-                                            <Fragment key={i}>
-                                                <li>{name}</li>
-                                            </Fragment>
-                                        )
-                                    })}
-                                </ul>
-                            </li>
-                            <label className="btn__add-image">
-                                Add Image
-                                <input style={{ display: "none" }} type="file" onChange={this.uploadImage.bind(this, folder[0])}/>
-                            </label>
-                        </Fragment>
-                    ))}
-                </ul>
-            </nav>
+            <ThemeContext.Consumer>
+                {({theme}) => (
+                    <nav className={"nav nav--" + theme}>
+                        <ul className="folder-list" ref={this.folderListRef}>
+                            {folderList && folderList.map((folder, index) => (
+                                <Fragment key={folder[0]}>
+                                    <li
+                                        onMouseOver={this.toggleClassByRef.bind(this, folder[0], 'edit')} 
+                                        onMouseLeave={this.toggleClassByRef.bind(this, folder[0], 'delete')}
+                                        className='folder-list__item'
+                                        id={folder[0]}
+                                    >
+                                        {editNow !== folder[0] && 
+                                            <span 
+                                                className="folder-list__name"
+                                                onClick={this.setFolderName.bind(this, folder[0])}
+                                            >{folder[1].folderName}</span>}
+                                        {editNow === folder[0] &&
+                                            <input 
+                                                value={folder[1].folderName} 
+                                                id={index} 
+                                                onChange={this.handleChangeName.bind(this, folder[0])} 
+                                                onBlur={() => this.setState({editNow: ''})}    
+                                            />
+                                        }
+                                        <label 
+                                            htmlFor={index}
+                                            onClick={this.edit.bind(this, folder[0])} 
+                                            className="icon icon-edit"
+                                        ></label>
+                                        <button onClick={this.deleteFolder.bind(this, folder[0])} className={"icon icon-delete"}></button>
+                                    </li>
+                                    <li key={"sub_" + folder[0]}>
+                                        <ul className="images-list">
+                                            {this.props.currentFolder === folder[0] && this.state.currentImageList.map((image, i) => {
+                                                let name = image[0].split('%2F')[2].split('?')[0];
+                                                return (
+                                                    <Fragment key={i}>
+                                                        <li>{name}</li>
+                                                    </Fragment>
+                                                )
+                                            })}
+                                        </ul>
+                                    </li>
+                                    <label className="btn__add-image">
+                                        Add Image
+                                        <input style={{ display: "none" }} type="file" onChange={this.uploadImage.bind(this, folder[0])}/>
+                                    </label>
+                                </Fragment>
+                            ))}
+                        </ul>
+                    </nav>
+                )}
+            </ThemeContext.Consumer>
         );
     }
 }

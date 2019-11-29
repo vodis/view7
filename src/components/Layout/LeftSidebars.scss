@@ -5,7 +5,17 @@
   position: relative;
   width: 300px;
   height: 100%;
-  background: #3d4f65;
+  z-index: 1;
+
+  &--light {
+    background: #3d4f65;
+  }
+
+  &--dark {
+    box-shadow: 0 5px 10px -5px $white;
+    background: $black;
+  }
+
   @include b(mobile) {
     width: 50px;
   }
